@@ -2,10 +2,11 @@ import React,{useState} from 'react'
 import Img from "./components/img-card"
 
 function App() {
-  const [data,setData]=useState({src:null,marginTop:null, marginRight:null, marginBottom:null, marginLeft:null, paddingTop:null, paddingRight:null, paddingBottom:null, paddingLeft:null, animation:null,width:"400px",height:"500px",backgroundColor:null, alignment:null,shape:null,caption:null})
-
-   let handleChange= function (e){ 
+  const [data,setData]=useState({src:null,marginTop:null, marginRight:null, marginBottom:null, marginLeft:null, paddingTop:null, paddingRight:null, paddingBottom:null, paddingLeft:null, animation:null,width:"400px",height:"500px",backgroundColor:null, alignment:null,shape:null,caption:null,onClick:null,href:null})
+  
+   let handleChange = function (e){ 
      const {value,name}=e.target
+
     setData( prevState=>{
       if(name==="paddingTop" ||name==="paddingRight" || name==="paddingBottom" || name==="paddingLeft" || name==="marginTop" ||name==="marginRight" || name==="marginBottom" || name==="marginLeft" )
       return{...prevState,[name]:value+"px"}
@@ -21,7 +22,6 @@ function App() {
     }
     else if(name==="backgroundColor"){
       return {...prevState,[name]:value}}
-
     else if(name==="alignment"){
       return {...prevState,[name]:value}}
     else if(name==="shape"){
@@ -30,18 +30,20 @@ function App() {
       return {...prevState,[name]:value}}
     else if(name==="caption"){
       return {...prevState,[name]:value}}
-    })
+      else if(name==="onClick"){
+        return {...prevState,[name]:value}}
+        else if(name==="href"){
+          return {...prevState,[name]:value}}
+      })
   }
-
-  let getImg=function(e){
+  console.log(data.onClick)
+  let getImg = function(e){
     let img=e.target.files[0]
     setData(prevState=>{
-      return {...prevState, ["src"]:URL.createObjectURL(img)}
-      
+      if(img){return {...prevState, ["src"]:URL.createObjectURL(img)}}
+      else{return {...prevState}}
     })
-
   }
-
   return (
     <div className="flex">
       <div className="flex items-center h-screen w-1/2">
@@ -69,6 +71,16 @@ function App() {
           <option value="justify-start">Left</option>
         </select>
       </div>
+      <div className="my-2">
+        <label htmlFor="select" className="mr-2">OnClick</label>
+        <select id="select" name="onClick" className="w-32  rounded w-16 border-gray-600 border border-gray-500 rounded" onChange={handleChange}>
+          <option>None</option>
+          <option value="link">Link Selector</option>
+          <option value="lightbox">LightBox</option>
+        </select>
+        {data.onClick==="link" && data.src? <input type="text" className="ml-5  border border-gray-500 rounded w-16 border-gray-600 w-32" name="href" placeholder="Write a Link" onChange={handleChange}/>:null}
+        
+        </div>
       <div className="mt-3">
         <label className="mx-2" htmlFor="padding">Padding</label>
         <label className="mx-2 " htmlFor="padding-top">Top</label>
@@ -101,7 +113,7 @@ function App() {
     </div>
     <div className="mt-3">
       <label className="mx-2" htmlFor="select">Animate</label>
-      <select  className=" border border-gray-500 rounded w-16 border-gray-600" name="animation" id="select"  onChange={handleChange}>
+      <select  className=" border border-gray-500 rounded w-16 border-gray-600" name="animation" onChange={handleChange}>
         <option>None</option>
         <optgroup label="Attention seekers">
           <option value="animate__bounce">Bounce</option>
@@ -237,9 +249,15 @@ function App() {
   </div>   
       </div>
       <div  className={`flex items-center w-1/2 ${data.alignment}  animate__animated ${data.animation} ${data.backgroundColor} `}>
-      <a href={data.src} data-lightbox="ejemplo">
+      {( data.src?(
+      ((data.onClick==="lightbox")? <a href={data.src} data-lightbox="img">
         <Img src={data.src} shape={data.shape} className={data.alignment} caption={data.caption}  style={{paddingTop:data.paddingTop,paddingRight:data.paddingRight,paddingBottom:data.paddingBottom,paddingLeft:data.paddingLeft, marginTop:data.marginTop,marginRight:data.marginRight,marginBottom:data.marginBottom,marginLeft:data.marginLeft,width:data.width,height:data.height}}/>
-      </a>
+      </a>:null)
+       || ((data.onClick==="link")? <a href={data.href}>
+        <Img src={data.src} shape={data.shape} className={data.alignment} caption={data.caption}  style={{paddingTop:data.paddingTop,paddingRight:data.paddingRight,paddingBottom:data.paddingBottom,paddingLeft:data.paddingLeft, marginTop:data.marginTop,marginRight:data.marginRight,marginBottom:data.marginBottom,marginLeft:data.marginLeft,width:data.width,height:data.height}}/>
+      </a>:null) 
+      ||  <Img src={data.src} shape={data.shape} className={data.alignment} caption={data.caption}  style={{paddingTop:data.paddingTop,paddingRight:data.paddingRight,paddingBottom:data.paddingBottom,paddingLeft:data.paddingLeft, marginTop:data.marginTop,marginRight:data.marginRight,marginBottom:data.marginBottom,marginLeft:data.marginLeft,width:data.width,height:data.height}}/>
+      ):null)}
       </div>
     </div>
   );
