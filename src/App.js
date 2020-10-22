@@ -8,30 +8,8 @@ function App() {
     const {value,name}=e.target
 
     setData( prevState=>{
-      if(name==="paddingTop" ||name==="paddingRight" || name==="paddingBottom" || name==="paddingLeft" || name==="marginTop" ||name==="marginRight" || name==="marginBottom" || name==="marginLeft" )
-        return{...prevState,[name]:value+"px"}
-      
-    else if(name==="animation"){
-      return {...prevState,[name]:value}}
-    else if(name==="width"){
-      return {...prevState,[name]:value+"px"}}
-    else if(name==="height"){
-      return {...prevState,[name]:value+"px"}}
-    else if(name==="backgroundColor"){
-      return {...prevState,[name]:value}}
-    else if(name==="alignment"){
-      return {...prevState,[name]:value}}
-    else if(name==="shape"){
-      return {...prevState,[name]:value}}
-    else if(name==="alignment"){
-      return {...prevState,[name]:value}}
-    else if(name==="caption"){
-      return {...prevState,[name]:value}}
-    else if(name==="onClick"){
-      return {...prevState,[name]:value}}
-    else if(name==="href"){
-      return {...prevState,[name]:value}}
-    })
+    (name==="paddingTop" ||name==="paddingRight" || name==="paddingBottom" || name==="paddingLeft" || name==="marginTop" ||name==="marginRight" || name==="marginBottom" || name==="marginLeft" )?
+        return{...prevState,[name]:value+"px"} : return{...prevState,[name]:value})
   }
   console.log(data.onClick)
   let getImg = function(e){
