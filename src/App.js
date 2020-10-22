@@ -4,14 +4,14 @@ import Img from "./components/img-card"
 function App() {
   const [data,setData]=useState({src:null,marginTop:null, marginRight:null, marginBottom:null, marginLeft:null, paddingTop:null, paddingRight:null, paddingBottom:null, paddingLeft:null, animation:null,width:"400px",height:"500px",backgroundColor:null, alignment:null,shape:null,caption:null,onClick:null,href:null})
   
-   let handleChange = function (e){ 
+  let handleChange = function (e){ 
     const {value,name}=e.target
 
     setData( prevState=>{
       name==="paddingTop" ||name==="paddingRight" || name==="paddingBottom" || name==="paddingLeft" || name==="marginTop" ||name==="marginRight" || name==="marginBottom" || name==="marginLeft" ?
       {...prevState,[name]:value+"px"} : {...prevState,[name]:value}
       return prevState})
-    }
+  }
       
   console.log(data.onClick)
   let getImg = function(e){
