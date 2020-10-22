@@ -8,9 +8,11 @@ function App() {
     const {value,name}=e.target
 
     setData( prevState=>{
-    (name==="paddingTop" ||name==="paddingRight" || name==="paddingBottom" || name==="paddingLeft" || name==="marginTop" ||name==="marginRight" || name==="marginBottom" || name==="marginLeft" )?
-        return{...prevState,[name]:value+"px"} : return{...prevState,[name]:value})
-  }
+      name==="paddingTop" ||name==="paddingRight" || name==="paddingBottom" || name==="paddingLeft" || name==="marginTop" ||name==="marginRight" || name==="marginBottom" || name==="marginLeft" ?
+      {...prevState,[name]:value+"px"} : {...prevState,[name]:value}
+      return prevState})
+    }
+      
   console.log(data.onClick)
   let getImg = function(e){
     let img=e.target.files[0]
